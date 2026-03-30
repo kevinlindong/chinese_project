@@ -1,0 +1,747 @@
+/* ===== CSS Custom Properties ===== */
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-section: #0e0e14;
+  --bg-card: #141420;
+  --bg-accent: #2a1a0a;
+  --bg-meipo: #0a1a10;
+
+  --red: #e01030;
+  --red-dim: #8b1a2a;
+  --gold: #d4a843;
+  --teal: #00d4aa;
+  --teal-dim: #1a6b5a;
+  --amber: #e67e22;
+  --blue: #2a5aaa;
+  --neon-green: #00e676;
+  --neon-green-deep: #0d3320;
+  --neon-red: #ff1a3a;
+  --neon-amber: #ff9100;
+
+  --text-primary: #e8e0d4;
+  --text-secondary: #8a8078;
+  --text-accent: #d4a843;
+  --text-vocab: #e8973a;
+
+  --font-serif: 'Noto Serif SC', 'Songti SC', serif;
+  --font-sans: 'Noto Sans SC', 'PingFang SC', sans-serif;
+
+  --section-padding: clamp(4rem, 10vh, 7rem) clamp(1.5rem, 5vw, 8rem);
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  color: var(--text-primary);
+  background: var(--bg-deep);
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+/* ===== Static Film Grain Overlay (no animation) ===== */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 512px 512px;
+}
+
+/* ===== Neon Ambient Glows ===== */
+.neon-glow {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.08;
+  z-index: 0;
+}
+
+.neon-glow--red {
+  width: 500px;
+  height: 500px;
+  background: var(--neon-red);
+  top: 10%;
+  right: -150px;
+}
+
+.neon-glow--teal {
+  width: 450px;
+  height: 450px;
+  background: var(--neon-green);
+  bottom: 20%;
+  left: -120px;
+  opacity: 0.1;
+}
+
+.neon-glow--blue {
+  width: 350px;
+  height: 350px;
+  background: var(--neon-green);
+  top: 50%;
+  left: 30%;
+  opacity: 0.05;
+}
+
+/* ===== Navigation ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 15, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 230, 118, 0.08);
+}
+
+.nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  list-style: none;
+  padding: 0.8rem 1rem;
+}
+
+.nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 2px;
+  transition: color 0.3s, text-shadow 0.3s;
+  letter-spacing: 0.05em;
+}
+
+.nav a:hover {
+  color: var(--neon-green);
+  text-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+}
+
+.nav a.active {
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.3);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8rem 1rem;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-secondary);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ===== Neon Typography Effects ===== */
+.neon-heading {
+  position: relative;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--gold);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 10px rgba(212, 168, 67, 0.3),
+    0 0 40px rgba(212, 168, 67, 0.1);
+}
+
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+}
+
+strong {
+  color: var(--text-vocab);
+  font-weight: 400;
+  text-shadow: 0 0 15px rgba(232, 151, 58, 0.2);
+}
+
+/* ===== Sections ===== */
+.section {
+  padding: var(--section-padding);
+  min-height: 60vh;
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.section-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Alternating section backgrounds with subtle neon edge glow */
+.section:nth-child(even) {
+  background: var(--bg-section);
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  opacity: 1;
+  transform: none;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(0, 230, 118, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 40%, rgba(255, 26, 58, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(13, 51, 32, 0.15) 0%, transparent 40%),
+    var(--bg-deep);
+}
+
+/* Vertical neon bars flanking the hero */
+.hero-neon-bar {
+  position: absolute;
+  width: 2px;
+  height: 60%;
+  top: 20%;
+  z-index: 0;
+}
+
+.hero-neon-bar--left {
+  left: clamp(2rem, 8vw, 8rem);
+  background: linear-gradient(to bottom, transparent, var(--neon-red), var(--red-dim), transparent);
+  box-shadow: 0 0 15px rgba(255, 26, 58, 0.3), 0 0 40px rgba(255, 26, 58, 0.1);
+}
+
+.hero-neon-bar--right {
+  right: clamp(2rem, 8vw, 8rem);
+  background: linear-gradient(to bottom, transparent, var(--neon-green), var(--neon-green-deep), transparent);
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.3), 0 0 40px rgba(0, 230, 118, 0.1);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  will-change: transform, opacity;
+}
+
+.hero-timestamp {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.3em;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  text-shadow:
+    0 0 20px rgba(212, 168, 67, 0.3),
+    0 0 60px rgba(212, 168, 67, 0.15),
+    0 0 100px rgba(212, 168, 67, 0.05);
+}
+
+/* Neon sign effect for hero keywords */
+.neon-sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.15em;
+  margin-bottom: 2rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.neon-text--red {
+  color: var(--neon-red);
+  text-shadow:
+    0 0 7px rgba(255, 26, 58, 0.8),
+    0 0 20px rgba(255, 26, 58, 0.4),
+    0 0 40px rgba(255, 26, 58, 0.2);
+}
+
+.neon-text--teal {
+  color: var(--neon-green);
+  text-shadow:
+    0 0 7px rgba(0, 230, 118, 0.8),
+    0 0 20px rgba(0, 230, 118, 0.4),
+    0 0 40px rgba(0, 230, 118, 0.2);
+}
+
+.neon-text--gold {
+  color: var(--gold);
+  text-shadow:
+    0 0 7px rgba(212, 168, 67, 0.8),
+    0 0 20px rgba(212, 168, 67, 0.4),
+    0 0 40px rgba(212, 168, 67, 0.2);
+}
+
+.neon-text--amber {
+  color: var(--neon-amber);
+  text-shadow:
+    0 0 7px rgba(255, 145, 0, 0.8),
+    0 0 20px rgba(255, 145, 0, 0.4),
+    0 0 40px rgba(255, 145, 0, 0.2);
+}
+
+.neon-dot {
+  color: var(--text-secondary);
+  opacity: 0.3;
+  font-size: 0.6em;
+  margin: 0 0.2em;
+}
+
+.hero-line {
+  width: 1px;
+  height: 50px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.3);
+}
+
+.hero-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  opacity: 0.6;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  letter-spacing: 0.08em;
+}
+
+.scroll-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+  animation: float 3s ease-in-out infinite;
+}
+
+.scroll-hint:hover {
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ===== Content Blocks ===== */
+.content-block {
+  background: var(--bg-card);
+  padding: 2rem 2.5rem;
+  border-left: 3px solid var(--gold);
+  border-radius: 2px;
+  box-shadow:
+    -3px 0 20px rgba(212, 168, 67, 0.05),
+    0 0 1px rgba(212, 168, 67, 0.1);
+}
+
+/* ===== Film Cards ===== */
+.film-card {
+  background: var(--bg-card);
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  transition: box-shadow 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Neon reflection strip at bottom of film cards */
+.film-card-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.film-card--red .film-card-accent {
+  background: linear-gradient(to right, transparent, var(--neon-red), transparent);
+  box-shadow: 0 0 15px rgba(255, 26, 58, 0.3);
+}
+
+.film-card--teal .film-card-accent {
+  background: linear-gradient(to right, transparent, var(--neon-green), transparent);
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
+}
+
+.film-card--amber .film-card-accent {
+  background: linear-gradient(to right, transparent, var(--neon-amber), transparent);
+  box-shadow: 0 0 15px rgba(255, 145, 0, 0.3);
+}
+
+.film-card:hover {
+  box-shadow: 0 0 40px rgba(212, 168, 67, 0.06);
+}
+
+.film-card--red { border-left: 3px solid var(--red); }
+.film-card--teal { border-left: 3px solid var(--teal); }
+.film-card--amber { border-left: 3px solid var(--amber); }
+
+.film-card--red:hover { box-shadow: 0 0 40px rgba(224, 51, 74, 0.08); }
+.film-card--teal:hover { box-shadow: 0 0 40px rgba(0, 212, 170, 0.08); }
+.film-card--amber:hover { box-shadow: 0 0 40px rgba(232, 151, 58, 0.08); }
+
+.film-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.film-card-header h3 {
+  margin-bottom: 0;
+}
+
+.film-year {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+
+/* ===== YouTube Clips Section ===== */
+.clip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.clip-item {
+  background: var(--bg-card);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: box-shadow 0.4s;
+  border: 1px solid rgba(0, 230, 118, 0.06);
+}
+
+.clip-item:hover {
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.06);
+}
+
+.clip-frame {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  background: #000;
+}
+
+.clip-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.clip-info {
+  padding: 1.25rem 1.5rem;
+}
+
+.clip-info h3 {
+  font-size: 1.1rem;
+  color: var(--neon-green);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(0, 230, 118, 0.15);
+}
+
+.clip-info p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+.clip-info strong {
+  color: var(--text-vocab);
+}
+
+/* ===== Theme Blocks ===== */
+.theme-block {
+  background: var(--bg-card);
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  border-left: 3px solid var(--blue);
+  transition: box-shadow 0.4s;
+}
+
+.theme-block:hover {
+  box-shadow: 0 0 30px rgba(42, 90, 170, 0.06);
+}
+
+/* ===== Lesson Connection Blocks ===== */
+.lesson-block {
+  padding: 2.5rem 2.5rem;
+  margin-top: 2.5rem;
+  border-radius: 2px;
+  position: relative;
+}
+
+.lesson-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.8rem;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+/* 牛郎织女 block */
+.niulang-block {
+  background: var(--bg-accent);
+  border-top: 2px solid var(--gold);
+  box-shadow: 0 -2px 20px rgba(212, 168, 67, 0.08);
+}
+
+.niulang-block .lesson-label {
+  background: rgba(212, 168, 67, 0.15);
+  color: var(--gold);
+}
+
+.niulang-block h3 {
+  color: var(--gold);
+  font-style: italic;
+  text-shadow: 0 0 20px rgba(212, 168, 67, 0.15);
+}
+
+/* 婚姻介绍 block */
+.meipo-block {
+  background: var(--bg-meipo);
+  border-top: 2px solid var(--neon-green);
+  box-shadow: 0 -2px 20px rgba(0, 230, 118, 0.06);
+}
+
+.meipo-block .lesson-label {
+  background: rgba(0, 230, 118, 0.1);
+  color: var(--neon-green);
+}
+
+.meipo-block h3 {
+  color: var(--neon-green);
+  font-style: italic;
+  text-shadow: 0 0 20px rgba(0, 230, 118, 0.15);
+}
+
+/* ===== Style Analysis Grid ===== */
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.style-item {
+  background: var(--bg-card);
+  padding: 2rem 2rem;
+  border-radius: 2px;
+  border-bottom: 2px solid var(--neon-green);
+  transition: box-shadow 0.4s;
+  box-shadow: 0 2px 15px rgba(0, 230, 118, 0.03);
+}
+
+.style-item:hover {
+  box-shadow: 0 2px 25px rgba(0, 230, 118, 0.08);
+}
+
+.style-item h3 {
+  color: var(--neon-green);
+  text-shadow: 0 0 15px rgba(0, 230, 118, 0.15);
+}
+
+/* ===== Vocabulary Grid ===== */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.vocab-item {
+  background: var(--bg-card);
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--gold);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.vocab-item:hover {
+  border-color: var(--neon-green);
+  box-shadow: -2px 0 15px rgba(0, 230, 118, 0.08);
+}
+
+.vocab-item .hanzi {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text-accent);
+}
+
+.vocab-item .pinyin {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.vocab-item .english {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+/* ===== Source List ===== */
+.source-list {
+  list-style: none;
+}
+
+.source-list li {
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-card);
+  border-radius: 2px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.source-label {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  background: rgba(212, 168, 67, 0.15);
+  color: var(--gold);
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  opacity: 0.4;
+  border-top: 1px solid rgba(0, 230, 118, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav ul {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem 1rem;
+  }
+
+  .nav.open ul {
+    display: flex;
+  }
+
+  .nav.open .nav-toggle span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav.open .nav-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav.open .nav-toggle span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .hero-neon-bar--left {
+    left: 1rem;
+  }
+
+  .hero-neon-bar--right {
+    right: 1rem;
+  }
+
+  .style-grid,
+  .clip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .film-card,
+  .theme-block,
+  .lesson-block,
+  .content-block,
+  .style-item {
+    padding: 1.5rem;
+  }
+
+  .neon-sign {
+    gap: 0.05em;
+  }
+
+  .neon-glow {
+    opacity: 0.05;
+  }
+}

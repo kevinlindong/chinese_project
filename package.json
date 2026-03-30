@@ -1,0 +1,13 @@
+{
+  "name": "wkw-chinese-project",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bunx vite",
+    "build": "bunx vite build",
+    "preview": "bunx vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.3"
+  }
+}
