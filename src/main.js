@@ -1,5 +1,29 @@
 import './style.css';
 
+// Film strip loading screen
+(() => {
+  const loader = document.getElementById('film-loader');
+  if (!loader) return;
+
+  document.body.classList.add('loading');
+
+  // After scroll animation finishes (1.4s), crossfade to page
+  setTimeout(() => {
+    // Reveal page content and start fading loader out simultaneously
+    document.body.classList.remove('loading');
+    document.body.classList.add('page-ready');
+    loader.classList.add('fading');
+    requestAnimationFrame(() => {
+      loader.classList.add('fade-out');
+    });
+  }, 1500);
+
+  // Remove loader DOM after fade completes
+  setTimeout(() => {
+    loader.remove();
+  }, 2400);
+})();
+
 // Scroll-triggered section reveal
 const sections = document.querySelectorAll('.section');
 const revealObserver = new IntersectionObserver(
